@@ -1,0 +1,21 @@
+@keyframes translating {
+    from {left: 0; width:5px;}
+    50% { left:25% ;width: 2px;}
+    70% { left:50%; width: 5px;}
+    80% { left: 75%; width:3px}
+    95% {left: 100%;}
+    to {left: 100%;}
+}
+.animate {
+  animation: translating 0.8s linear infinite;
+  position: absolute;
+  border: 3px solid;
+  border-bottom: none;
+  bottom: -2px;
+  left: 0;
+  /* right:0 */
+}
+
+.hidden {
+  display: none;
+}
