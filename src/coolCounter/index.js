@@ -1,29 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 
-// function translation()
-// {
-
-//    return `@keyframes  {
-//         0%  {
-
-//             -webkit-transform: translate(0%);
-//         }
-
-//         50% { -webkit-transform: translate(${80})}
-
-//         100%{  -webkit-transform: translate(0%)}
-//       }`
-
-// }
-
 class CoolCounter extends Component {
-  // constructor(props) {
-  //   super();
-
-  //   //this.state = { value: props.value };
-  // }
-
   onDecrement = value => {
     this.props.onDecrement(value, value + 1);
     this.setState({ value });
@@ -33,22 +11,33 @@ class CoolCounter extends Component {
     this.setState({ value });
   };
 
+  isValueValid = () => {
+    const { value, min, max } = this.props;
 
-isValueValid = ()=>{
-const {value} = this.props;
+    if (typeof value != "number") {
+      console.error("type of value should be number");
+      return false;
+    } else if (
+      (typeof min == "number" && value < min) ||
+      (typeof min != "number" && typeof min != "undefined")
+    ) {
+      console.error(
+        "minimum value should be less than the value and of type number"
+      );
 
+      return false;
+    } else if (
+      (typeof max == "number" && value > max) ||
+      (typeof max != "number" && typeof max != "undefined")
+    ) {
+      console.error(
+        "value should be less than the maximum value and of type number"
+      );
+      return false;
+    }
 
-if( typeof value != "number"){
-return NaN
-}
-
-
-
-
-
-
-}
-
+    return true;
+  };
 
   render() {
     // const { value } = this.state;
@@ -64,13 +53,11 @@ return NaN
       max
     } = this.props;
 
-    const width = rootStyle.width || 80;
+    const width = (rootStyle && rootStyle.width) || 80;
 
-   
+    const isAllValid = this.isValueValid();
 
     return (
-      // <div style={{width:80,position:"relative"}}>
-
       <div
         style={{
           display: "flex",
@@ -79,6 +66,7 @@ return NaN
           justifyContent: "space-between",
           position: "relative",
           textAlign: "center",
+          border: "1px solid #80C241",
           ...rootStyle
         }}
       >
@@ -87,7 +75,7 @@ return NaN
           className={isLoading ? "animate" : "hidden"}
         />
 
-        { typeof value != "number" || value <= min ? (
+        {!isAllValid || value <= min ? (
           <div
             style={{
               cursor: "not-allowed",
@@ -106,8 +94,10 @@ return NaN
             -
           </div>
         )}
-        <div style={{ width: width / 3, ...valueStyle }}>{value}</div>
-        { typeof value != "number" || value >= max ? (
+        <div style={{ width: width / 3, ...valueStyle }}>
+          {isAllValid ? value : NaN}
+        </div>
+        {!isAllValid || value >= max ? (
           <div
             style={{
               cursor: "not-allowed",
@@ -128,7 +118,6 @@ return NaN
           </div>
         )}
       </div>
-      // </div>
     );
   }
 }
