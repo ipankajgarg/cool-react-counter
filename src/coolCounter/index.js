@@ -4,12 +4,15 @@ import "./style.css";
 class CoolCounter extends Component {
   onDecrement = value => {
     this.props.onDecrement(value, value + 1);
-    this.setState({ value });
+   // this.setState({ value });
   };
   onIncrement = value => {
     this.props.onIncrement(value, value - 1);
-    this.setState({ value });
+    //this.setState({ value });
   };
+
+
+
 
   isValueValid = () => {
     const { value, min, max } = this.props;
@@ -50,7 +53,8 @@ class CoolCounter extends Component {
       value,
       loaderColor,
       min,
-      max
+      max,
+      onDecrement,onIncrement,onIncrementDisabled,onDecrementDisabled
     } = this.props;
 
     const width = (rootStyle && rootStyle.width) || 80;
@@ -83,12 +87,15 @@ class CoolCounter extends Component {
               ...decrementStyle,
               color: "grey"
             }}
+
+onClick = {()=>onDecrementDisabled ? onDecrementDisabled (value) : console.log()}
+
           >
             -
           </div>
         ) : (
           <div
-            onClick={() => this.onDecrement(value - 1)}
+            onClick={() => onDecrement(value - 1,value)}
             style={{ cursor: "default", width: width / 3, ...decrementStyle }}
           >
             -
@@ -106,12 +113,14 @@ class CoolCounter extends Component {
               ...incrementStyle,
               color: "grey"
             }}
+            onClick = {()=>onIncrementDisabled ? onIncrementDisabled (value) : console.log()}
+
           >
             +
           </div>
         ) : (
           <div
-            onClick={() => this.onIncrement(value + 1)}
+            onClick={() => onIncrement(value + 1 , value)}
             style={{ width: width / 3, cursor: "default", ...incrementStyle }}
           >
             +

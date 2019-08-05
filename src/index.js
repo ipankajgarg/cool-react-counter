@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 //import './index.css';
 import CoolCounter from "./coolCounter";
+import CountUp from 'react-countup';
 //import * as serviceWorker from './serviceWorker';
 
 function onDecrement(currentValue, previousValue) {
@@ -22,6 +23,7 @@ class Test extends Component {
     console.log(currentValue, previousValue);
     this.setState({ value: currentValue });
   };
+  
 
   render() {
     return (
@@ -37,12 +39,14 @@ class Test extends Component {
         value={this.state.value}
         onDecrement={this.onDecrement}
         onIncrement={this.onIncrement}
+        onIncrementDisabled = {()=>console.log("disabled inc")}
+        onDecrementDisabled = {()=>console.log("disabled dec")}
       />
     );
   }
 }
 
-ReactDOM.render(<Test />, document.getElementById("root"));
+ReactDOM.render(<Test/>, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
