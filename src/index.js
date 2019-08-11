@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-//import './index.css';
+
 import CoolCounter from "./coolCounter";
-import CountUp from 'react-countup';
-//import * as serviceWorker from './serviceWorker';
+
 
 function onDecrement(currentValue, previousValue) {
   console.log(currentValue, previousValue);
@@ -48,7 +47,4 @@ class Test extends Component {
 
 ReactDOM.render(<Test/>, document.getElementById("root"));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-//serviceWorker.unregister();
+
